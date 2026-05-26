@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot name="skyguard_drone">
+  <link name="base_link">
+    <visual><geometry><box size="0.3 0.3 0.1"/></geometry></visual>
+    <inertial><mass value="0.25"/></inertial>
+  </link>
+  <link name="motor_fl"><joint name="motor_fl_joint" type="fixed">
+    <parent link="base_link"/><child link="motor_fl"/><origin xyz="0.15 0.15 0.05"/>
+  </joint></link>
+</robot>
