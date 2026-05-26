@@ -1,0 +1,66 @@
+# SkyGuard Default Configuration
+# All values in SI units unless noted
+
+drone:
+  model: quad_x
+  mass: 0.245          # kg (sub-250g)
+  max_speed: 8.0        # m/s
+  hover_altitude: 2.5   # meters above target
+  max_altitude: 5.0     # safety ceiling
+  min_altitude: 1.0     # safety floor
+
+gps:
+  uart_port: /dev/ttyS2
+  baud_rate: 9600
+  fix_timeout: 5000     # ms
+  hdop_threshold: 2.0
+
+uwb:
+  spi_device: /dev/spidev0.0
+  update_rate: 100      # Hz
+  range_noise: 0.05     # meters stddev
+
+camera:
+  resolution: [320, 240]
+  fps: 15
+  model_path: /models/person_detector.tflite
+  confidence_threshold: 0.7
+  detection_interval: 500  # ms
+
+pid:
+  altitude:
+    kp: 2.0
+    ki: 0.5
+    kd: 0.1
+    output_min: 0.0
+    output_max: 1.0
+  position:
+    kp: 1.5
+    ki: 0.3
+    kd: 0.08
+    output_min: -0.5
+    output_max: 0.5
+
+motors:
+  protocol: dshot600
+  min_throttle: 1000
+  max_throttle: 2000
+  motor_order: [FL, FR, BL, BR]
+
+rain_sensor:
+  pin: GPIO34
+  threshold: 80.0       # % humidity
+  confirm_samples: 10
+
+battery:
+  cells: 4
+  voltage_pin: GPIO35
+  low_voltage: 3.5      # per cell
+  critical_voltage: 3.3  # per cell
+  warning_voltage: 3.6
+
+failsafe:
+  gps_loss_timeout: 3000   # ms
+  rc_loss_timeout: 1000    # ms
+  low_battery_action: rtl  # rtl or land
+  critical_action: land
